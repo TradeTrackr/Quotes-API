@@ -18,6 +18,7 @@ class Quote(Base):
     quote_details = Column(String, index=True)
     quote_title = Column(String, index=True)
     timestamp = Column(DateTime, default=datetime.datetime.utcnow(), nullable=True)
+    calendar_events = relationship('Calendar', order_by='Calendar.scheduled_date', back_populates='quote')
 
 class Calendar(Base):
     __tablename__ = 'calendar'
@@ -28,6 +29,5 @@ class Calendar(Base):
     event_type = Column(String, nullable=False)
     event_status = Column(String, index=True)
     notes = Column(String, nullable=True)
-
     # Relationship to the Quote model
     quote = relationship('Quote', back_populates='calendar_events')
