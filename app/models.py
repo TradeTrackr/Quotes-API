@@ -14,6 +14,7 @@ class Quote(Base):
     enquiry_id = Column(Integer, index=True)
     amount = Column(Float, index=True)
     status = Column(String, index=True)
+    quote_type = Column(String, index=True)
     category_id = Column(Integer, index=True)
     quote_details = Column(String, index=True)
     quote_title = Column(String, index=True)

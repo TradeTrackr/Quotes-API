@@ -7,6 +7,8 @@ class QuoteModel(BaseModel):
     enquiry_id: int
     amount: float
     status: str
+    category_id: int
+    quote_type: str
     quote_details: str
     quote_title: str
     timestamp: Optional[datetime] = None
