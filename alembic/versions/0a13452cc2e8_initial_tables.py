@@ -1,8 +1,8 @@
-"""Create initial tables
+"""Initial tables
 
-Revision ID: 166d4551d8fd
+Revision ID: 0a13452cc2e8
 Revises: 
-Create Date: 2024-01-14 09:22:17.885905
+Create Date: 2024-01-16 14:42:22.961385
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '166d4551d8fd'
+revision: str = '0a13452cc2e8'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -25,6 +25,7 @@ def upgrade() -> None:
     sa.Column('enquiry_id', sa.Integer(), nullable=True),
     sa.Column('amount', sa.Float(), nullable=True),
     sa.Column('status', sa.String(), nullable=True),
+    sa.Column('quote_type', sa.String(), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('quote_details', sa.String(), nullable=True),
     sa.Column('quote_title', sa.String(), nullable=True),
@@ -37,6 +38,7 @@ def upgrade() -> None:
     op.create_index(op.f('ix_quote_id'), 'quote', ['id'], unique=False)
     op.create_index(op.f('ix_quote_quote_details'), 'quote', ['quote_details'], unique=False)
     op.create_index(op.f('ix_quote_quote_title'), 'quote', ['quote_title'], unique=False)
+    op.create_index(op.f('ix_quote_quote_type'), 'quote', ['quote_type'], unique=False)
     op.create_index(op.f('ix_quote_status'), 'quote', ['status'], unique=False)
     op.create_table('calendar',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -59,6 +61,7 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_calendar_event_status'), table_name='calendar')
     op.drop_table('calendar')
     op.drop_index(op.f('ix_quote_status'), table_name='quote')
+    op.drop_index(op.f('ix_quote_quote_type'), table_name='quote')
     op.drop_index(op.f('ix_quote_quote_title'), table_name='quote')
     op.drop_index(op.f('ix_quote_quote_details'), table_name='quote')
     op.drop_index(op.f('ix_quote_id'), table_name='quote')
