@@ -41,9 +41,9 @@ async def new_calendar_event(db: AsyncSession, calendar: CalendarModel):
                 scheduled_end_date_and_time=calendar.scheduled_end_date_and_time,
                 event_type=calendar.event_type,
                 company_id=calendar.company_id,
+                all_day=calendar.all_day,
                 event_status=calendar.event_status,
                 notes=calendar.notes,
-                event_details=calendar.event_details,
                 event_title=calendar.event_title
     )
 

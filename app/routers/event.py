@@ -2,14 +2,9 @@ import imp
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.utilities.db import get_db
-from app.utilities.crud import (
-        new_calendar_event,
-        get_calendar_for_company_with_quotes,
-        new_trader,
-        get_quotes_for_enquiry
-)
+from app.utilities.crud import new_calendar_event
 from app.utilities.authentication import Authentication
-from app.validation_models import QuoteModel, IncomingModel, CalendarModel
+from app.validation_models import IncomingModel, CalendarModel
 import datetime
 
 event_route = APIRouter()
@@ -35,7 +30,7 @@ event_route = APIRouter()
 #         raise HTTPException(status_code=404, detail="No quotes found for company")
 #     return {"quotes": quote}
 
-@event_route.post("/new", response_model=QuoteModel)
+@event_route.post("/new", response_model=CalendarModel)
 async def create_quote(incoming_quote: IncomingModel, user=Depends(Authentication().validate_token), db: AsyncSession = Depends(get_db)) -> dict:
 
     calendar_model = CalendarModel(

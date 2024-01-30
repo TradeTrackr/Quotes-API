@@ -27,7 +27,7 @@ class Calendar(Base):
     quote_id = Column(Integer, ForeignKey('quote.id'), nullable=True)
     scheduled_start_date_and_time = Column(DateTime, nullable=True)
     scheduled_end_date_and_time = Column(DateTime, nullable=True)
-    event_type = Column(String, nullable=False)
+    event_type = Column(String, nullable=True)
     company_id = Column(String, index=True)
     all_day = Column(Boolean, index=True)
     event_status = Column(String, index=True)

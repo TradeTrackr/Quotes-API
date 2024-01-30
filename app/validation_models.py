@@ -8,7 +8,7 @@ class CalendarModel(BaseModel):
     quote_id: Optional[int] = None
     scheduled_start_date_and_time: Optional[datetime] = None
     scheduled_end_date_and_time: Optional[datetime] = None
-    event_type: str
+    event_type: Optional[str] = None
     company_id: str
     all_day: bool
     event_status: str
@@ -36,11 +36,11 @@ class QuoteModel(BaseModel):
         orm_mode = True
 
 class IncomingModel(BaseModel):
-    enquiry_id: int
+    enquiry_id: Optional[int] = None
     quote_title: str
     quote_details: str
     amount: Optional[float] = None
-    category_id: int
+    category_id: Optional[int] = None
     status: str
     all_day: bool
     company_id: str
