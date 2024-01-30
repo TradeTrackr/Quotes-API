@@ -45,7 +45,8 @@ async def create_quote(incoming_quote: IncomingModel, user=Depends(Authenticatio
         company_id=incoming_quote.company_id,
         event_status=incoming_quote.status,
         notes=incoming_quote.quote_details,
-        event_title = incoming_quote.quote_title
+        event_title = incoming_quote.quote_title,
+        all_day = incoming_quote.all_day
     )
 
     new_calendar = await new_calendar_event(db, calendar_model)

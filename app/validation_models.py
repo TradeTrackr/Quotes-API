@@ -10,8 +10,8 @@ class CalendarModel(BaseModel):
     scheduled_end_date_and_time: Optional[datetime] = None
     event_type: str
     company_id: str
+    all_day: bool
     event_status: str
-    event_details: str
     event_title: str
     notes: str
     timestamp: Optional[datetime] = None
@@ -42,6 +42,7 @@ class IncomingModel(BaseModel):
     amount: Optional[float] = None
     category_id: int
     status: str
+    all_day: bool
     company_id: str
     quote_type: Optional[str] = None
     scheduled_start_date_and_time: Optional[str] = None

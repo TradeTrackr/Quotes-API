@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 import datetime
@@ -25,10 +25,11 @@ class Calendar(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     quote_id = Column(Integer, ForeignKey('quote.id'), nullable=True)
-    scheduled_start_date_and_time = Column(DateTime, nullable=False)
-    scheduled_end_date_and_time = Column(DateTime, nullable=False)
+    scheduled_start_date_and_time = Column(DateTime, nullable=True)
+    scheduled_end_date_and_time = Column(DateTime, nullable=True)
     event_type = Column(String, nullable=False)
     company_id = Column(String, index=True)
+    all_day = Column(Boolean, index=True)
     event_status = Column(String, index=True)
     event_title = Column(String, index=True)
     notes = Column(String, nullable=True)
