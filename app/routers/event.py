@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.utilities.db import get_db
 from app.utilities.crud import new_calendar_event
 from app.utilities.authentication import Authentication
-from app.validation_models import IncomingModel, CalendarModel
+from app.validation_models import IncomingModel, CalendarModel, CalendarUpdateModel
 import datetime
 
 event_route = APIRouter()
@@ -41,9 +41,19 @@ async def create_quote(incoming_quote: IncomingModel, user=Depends(Authenticatio
         event_status=incoming_quote.status,
         notes=incoming_quote.quote_details,
         event_title = incoming_quote.quote_title,
+        category_id=incoming_quote.category_id,
         all_day = incoming_quote.all_day
     )
 
     new_calendar = await new_calendar_event(db, calendar_model)
 
     return new_calendar
+
+@event_route.patch("/update/{calendar_id}", response_model=CalendarModel)
+async def update_calendar_event(
+    calendar_id: int, 
+    updated_data: CalendarUpdateModel, 
+    db: AsyncSession = Depends(get_db)
+    ) -> CalendarModel:
+    
+    return await update_calendar_event(db, calendar_id, updated_data)

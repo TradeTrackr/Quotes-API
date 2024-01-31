@@ -10,6 +10,7 @@ class CalendarModel(BaseModel):
     scheduled_end_date_and_time: Optional[datetime] = None
     event_type: Optional[str] = None
     company_id: str
+    category_id: Optional[int] = None
     all_day: bool
     event_status: str
     event_title: str
@@ -49,3 +50,17 @@ class IncomingModel(BaseModel):
     scheduled_end_date_and_time: Optional[str] = None
     timestamp: Optional[datetime] = None
 
+class CalendarUpdateModel(BaseModel):
+    scheduled_start_date_and_time: Optional[datetime] = None
+    scheduled_end_date_and_time: Optional[datetime] = None
+    event_type: Optional[str] = None
+    company_id: Optional[str] = None
+    event_status: Optional[str] = None
+    notes: Optional[str] = None
+    quote_id: Optional[int] = None
+    all_day: Optional[bool] = None
+    category_id: Optional[int] = None
+    event_title: Optional[str] = None
+
+    class Config:
+        orm_mode = True

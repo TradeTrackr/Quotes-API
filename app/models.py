@@ -30,6 +30,7 @@ class Calendar(Base):
     event_type = Column(String, nullable=True)
     company_id = Column(String, index=True)
     all_day = Column(Boolean, index=True)
+    category_id = Column(Integer, index=True)
     event_status = Column(String, index=True)
     event_title = Column(String, index=True)
     notes = Column(String, nullable=True)

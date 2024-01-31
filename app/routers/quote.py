@@ -61,6 +61,7 @@ async def create_quote(incoming_quote: IncomingModel, user=Depends(Authenticatio
         notes=incoming_quote.quote_details,
         quote_id = new_quote.id,
         all_day = incoming_quote.all_day,
+        category_id=incoming_quote.category_id,
         event_title = incoming_quote.quote_title
     )
 

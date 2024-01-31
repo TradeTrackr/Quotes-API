@@ -6,6 +6,7 @@ from app.validation_models import QuoteModel, CalendarModel
 from sqlalchemy import select
 from datetime import datetime
 from sqlalchemy.orm import selectinload
+from fastapi import HTTPException
 
 
 async def get_quote_by_id(db: AsyncSession, quote_id: int):
@@ -26,6 +27,22 @@ async def get_calendar_for_company_with_quotes(db: AsyncSession, company_id: str
         .where(models.Calendar.company_id == company_id)
     )
     return result.scalars().all()
+
+async def update_calendar_event(db: AsyncSession, calendar_id: int, calendar: CalendarModel):
+
+    query = select(CalendarModel).where(CalendarModel.id == calendar_id)
+    result = await db.execute(query)
+    calendar_event = result.scalar_one_or_none()
+
+    if not calendar_event:
+        raise HTTPException(status_code=404, detail="Calendar event not found")
+
+    # Update the fields
+    for var, value in vars(calendar).items():
+        setattr(calendar_event, var, value) if value else None
+
+    db.add(calendar_event)
+    await db.commit()
 
 async def new_calendar_event(db: AsyncSession, calendar: CalendarModel):
 
