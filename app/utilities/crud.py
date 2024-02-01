@@ -30,7 +30,7 @@ async def get_calendar_for_company_with_quotes(db: AsyncSession, company_id: str
 
 async def update_calendar_event(db: AsyncSession, calendar_id: int, calendar: CalendarModel):
 
-    query = select(CalendarModel).where(CalendarModel.id == calendar_id)
+    query = select(models.Calendar).where(models.Calendar.id == calendar_id)
     result = await db.execute(query)
     calendar_event = result.scalar_one_or_none()
 
@@ -43,6 +43,7 @@ async def update_calendar_event(db: AsyncSession, calendar_id: int, calendar: Ca
 
     db.add(calendar_event)
     await db.commit()
+    return calendar_event
 
 async def new_calendar_event(db: AsyncSession, calendar: CalendarModel):
 

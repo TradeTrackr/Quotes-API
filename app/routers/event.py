@@ -2,7 +2,7 @@ import imp
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.utilities.db import get_db
-from app.utilities.crud import new_calendar_event
+from app.utilities.crud import new_calendar_event, update_calendar_event
 from app.utilities.authentication import Authentication
 from app.validation_models import IncomingModel, CalendarModel, CalendarUpdateModel
 import datetime
@@ -50,10 +50,11 @@ async def create_quote(incoming_quote: IncomingModel, user=Depends(Authenticatio
     return new_calendar
 
 @event_route.patch("/update/{calendar_id}", response_model=CalendarModel)
-async def update_calendar_event(
+async def update_event(
     calendar_id: int, 
     updated_data: CalendarUpdateModel, 
     db: AsyncSession = Depends(get_db)
     ) -> CalendarModel:
     
-    return await update_calendar_event(db, calendar_id, updated_data)
+    update_event = await update_calendar_event(db, calendar_id, updated_data)
+    return update_event
