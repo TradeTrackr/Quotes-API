@@ -9,10 +9,11 @@ from app.models import Base
 # access to the values within the .ini file in use.
 config = context.config
 import os
+import urllib.parse
 
 
 SQLALCHEMY_USER = os.environ['SQLALCHEMY_USER']
-SQLALCHEMY_PASSWORD = os.environ['SQLALCHEMY_PASSWORD']
+SQLALCHEMY_PASSWORD = urllib.parse.quote_plus(os.environ['SQLALCHEMY_PASSWORD']).replace('%40', '%%40')
 SQLALCHEMY_HOST = os.environ['SQLALCHEMY_HOST']
 SQLALCHEMY_PORT = os.environ['SQLALCHEMY_PORT']
 SQLALCHEMY_DB = os.environ['SQLALCHEMY_DB']
