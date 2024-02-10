@@ -1,4 +1,5 @@
 import os
+import urllib.parse
 
 SECRET_KEY = os.environ['SECRET_KEY']
 ALGORITHM = os.environ['ALGORITHM']
@@ -8,7 +9,7 @@ REFRESH_TOKEN_EXPIRE_DAYS = os.environ['REFRESH_TOKEN_EXPIRE_DAYS']
 
 
 SQLALCHEMY_USER = os.environ['SQLALCHEMY_USER']
-SQLALCHEMY_PASSWORD = os.environ['SQLALCHEMY_PASSWORD']
+SQLALCHEMY_PASSWORD = urllib.parse.quote_plus(os.environ['SQLALCHEMY_PASSWORD']).replace('%40', '%%40')
 SQLALCHEMY_HOST = os.environ['SQLALCHEMY_HOST']
 SQLALCHEMY_PORT = os.environ['SQLALCHEMY_PORT']
 SQLALCHEMY_DB = os.environ['SQLALCHEMY_DB']
